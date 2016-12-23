@@ -22,7 +22,7 @@ def index():
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     global working_image
-    target = os.path.join(APP_ROOT, 'images/')
+    target = os.path.join(APP_ROOT, 'static/')
     print(target)
 
     if not os.path.isdir(target):
@@ -51,7 +51,7 @@ def upload():
 
 @app.route('/upload/<filename>')
 def send_image(filename):
-    return send_from_directory("", filename)
+    return send_from_directory("static/", filename)
 
 
 @app.route('/gallery')
@@ -71,7 +71,7 @@ def select():
     working_image.update_measure_object_index(int(target_object))
     fname_measured_image, path = working_image.generate_measured_image()
 
-    return render_template("index.html")
+    return render_template("final.html",image_name=fname_measured_image)
 
 
 if __name__ == "__main__":
